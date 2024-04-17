@@ -35,14 +35,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sendTone = new Audio("./notification-sounds/message-send.mp3")
     const receivedTone = new Audio("./notification-sounds/message-received.mp3")
 
-
-
-        // Función para reproducir un sonido
-    const playSound = () => {
-        const audio = new Audio('ruta/al/sonido.mp3');
-        audio.play();
-    };
-
     socket.on("chat message", (msg, serverOffset, username) => {
         try {
             
@@ -77,8 +69,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 input.value = "";
             }
 
-            
+            // Reproducir el tono cuando se envia un mensaje
             sendTone.play()
+
         } catch (error) {
             throw new Error("Error al obtener el nombre de usuario:", error);
         }
