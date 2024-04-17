@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const messages = document.getElementById("messages");
 
     const sendTone = new Audio("./notification-sounds/message-send.mp3")
-    const receivedTone = new Audio("./notification-sounds/message-received.mp3")
+    // const receivedTone = new Audio("./notification-sounds/message-received.mp3")
 
     socket.on("chat message", (msg, serverOffset, username) => {
         try {
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             messages.scrollTop = messages.scrollHeight;
 
             // Reproducir el tono cuando se recibe un mensaje
-            receivedTone.play()
+            // receivedTone.play()
             
         } catch (error) {
             throw new Error("Error al obtener el nombre de usuario:", error);
