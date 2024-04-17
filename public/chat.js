@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const username = localStorage.getItem("username");
             if (username) {
-                console.log(`Usuario existente: ${username}`);
+                // console.log(`Usuario existente: ${username}`);
                 return username;
             }
 
@@ -32,8 +32,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const input = document.getElementById("input");
     const messages = document.getElementById("messages");
 
-    const sendTone = new Audio("./message-send.mp3")
-    const receivedTone= new Audio("./message-received.mp3")
+    const sendTone = new Audio("./notification-sounds/message-send.mp3")
+    const receivedTone = new Audio("./notification-sounds/message-received.mp3")
+
+
+
+        // Función para reproducir un sonido
+    const playSound = () => {
+        const audio = new Audio('ruta/al/sonido.mp3');
+        audio.play();
+    };
 
     socket.on("chat message", (msg, serverOffset, username) => {
         try {
