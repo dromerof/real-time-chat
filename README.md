@@ -9,15 +9,17 @@ Para la creacion de este chat en tiempo real se utilizo JavaScript, Turso como l
 
 # 👨🏽‍💻 Ejecutar en desarrollo
 
-1. Clonar el repositorio
+1. Clonar el repositorio.
 ```
-https://github.com/dromerof/real-time-chat.git
+https://github.com/dromerof/real-time-chat.
 ```
-2. Instalar los paquetes
+
+2. Instalar los paquetes.
 ``` 
 npm install
 ``` 
-3. Tener Turso instalado
+
+3. Tener Turso instalado.
     * macOS
     
             brew install tursodatabase/tap/turso
@@ -30,10 +32,12 @@ npm install
     
             
             curl -sSfL https://get.tur.so/install.sh | bash
+
 4. Ejecutar
 ```
 npm run dev 
-```             
+```      
+       
 # 🛠️ Stack usado  
 * javaScript
 * Socket.IO 
