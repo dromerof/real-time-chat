@@ -33,14 +33,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const messages = document.getElementById("messages");
 
     const sendTone = new Audio("./notification-sounds/message-send.mp3");
-const receivedTone = new Audio("./notification-sounds/message-received.mp3");
+    const receivedTone = new Audio("./notification-sounds/message-received.mp3");
 
-socket.on("chat message", (msg, serverOffset, username) => {
-    try {
-        const isOwnMessage = username === localStorage.getItem("username");
-        const messageClass = isOwnMessage ? 'send-message' : 'received-message';
+    socket.on("chat message", (msg, serverOffset, username) => {
 
-        const menssage = `
+        try {
+
+            const isOwnMessage = username === localStorage.getItem("username");
+            const messageClass = isOwnMessage ? 'send-message' : 'received-message';
+
+            const menssage = `
             <li class="${messageClass}">
                 <p>${msg}</p>
                 <small>${username}</small>
@@ -51,49 +53,32 @@ socket.on("chat message", (msg, serverOffset, username) => {
         // Scroll hasta el final de los mensajes
         messages.scrollTop = messages.scrollHeight;
 
-        // Reproducir el tono solo si no estamos enviando un mensaje
-        if (!isSendingMessage()) {
-            receivedTone.play();
-        }
+        // Reproducir si estamos recibiendo un mensaje
+        // receivedTone.play();
+        
     } catch (error) {
         throw new error("Error al procesar el mensaje:", error);
     }
-});
+    });
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    form.addEventListener("submit", async (e) => {
 
-    try {
-        if (input.value.trim() !== "") {
-            socket.emit("chat message", input.value);
-            input.value = "";
-            setSendingMessage(true); // Marcar que estamos enviando un mensaje
-        }
+        e.preventDefault();
 
-        // Reproducir el sonido de envío de mensaje
-        sendTone.play();
-    } catch (error) {
-        throw new error("Error al enviar el mensaje:", error);
-    } finally {
-        await delay(70); // Esperar un breve período para evitar el solapamiento de sonidos
-        setSendingMessage(false); // Restablecer que no estamos enviando un mensaje
-    }
-});
+        try {
 
-    // Función para rastrear si se está enviando un mensaje
-    let sendingMessage = false;
-    function setSendingMessage(value) {
-        sendingMessage = value;
-    }
+            if (input.value.trim() !== "") {
+                socket.emit("chat message", input.value);
+                input.value = "";
+            }
 
-    function isSendingMessage() {
-        return sendingMessage;
-    }
+            // Reproducir el sonido de envío de mensaje
+            sendTone.play();
 
-    // Función de retraso para evitar solapamiento de sonidos
-    function delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+        } catch (error) {
+            throw new error("Error al enviar el mensaje:", error);
+        } 
+    });
 
 });
 
